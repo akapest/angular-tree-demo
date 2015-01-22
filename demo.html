@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.min.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="demo.css">
+</head>
+<body ng-app="demoApp" >
+
+    <div ng-controller="TwoTreesCtrl" >
+        <div ng-model="list" data-id="left" class="tree col-sm-4" ng-include="'tree.html'"></div>
+        <div ng-model="list" data-id="right" class="tree col-sm-4" ng-include="'tree.html'"></div>
+    </div>
+
+    <script type="text/ng-template" id="tree.html">
+        <div ui-tree="treeOptions" data-drag-delay="100">
+            <ol ui-tree-nodes="" ng-model="list" id="tree-root">
+                <li ng-repeat="node in list" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+            </ol>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="nodes_renderer.html">
+        <div ui-tree-handle data-id="{{node.id}}" ng-click="click()">
+            <a class="btn btn-success btn-xs" data-nodrag="" ng-click="toggle(this); afterToggle();"><span class="glyphicon glyphicon-chevron-down" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span></a>
+            {{node.title}}
+            <a class="pull-right btn btn-danger btn-xs" data-nodrag="" ng-click="removeNode(this)"><span class="glyphicon glyphicon-remove"></span></a>
+            <a class="pull-right btn btn-primary btn-xs" data-nodrag="" ng-click="connect(this)" style="margin-right: 8px;"><span class="glyphicon glyphicon-transfer"></span></a>
+            <a class="pull-right btn btn-primary btn-xs" data-nodrag="" ng-click="newSubItem(this)" style="margin-right: 8px;"><span class="glyphicon glyphicon-plus"></span></a>
+        </div>
+        <ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
+            <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'">
+            </li>
+        </ol>
+    </script>
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="bower_components/angular-ui-tree/dist/angular-ui-tree.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+</body>
+</html>
