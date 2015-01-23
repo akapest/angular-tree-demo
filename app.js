@@ -100,18 +100,25 @@
               addLink(left, right); // then create it
               drawLine(left, right); // and draw
             }
-            left.toggleClass('selected'); // and clear the state
-            right.toggleClass('selected');
-            $scope['left'] = null;
-            $scope['right'] = null;
+            $scope.resetConnecting(); // and clear state
           }
           return true;
+        };
+
+        $scope.resetConnecting = function(){
+          var left = $scope['left'];
+          var right = $scope['right'];
+          left && left.toggleClass('selected');
+          right && right.toggleClass('selected');
+          $scope['left'] = null;
+          $scope['right'] = null;
         };
 
         // this is set via ui-tree attribute
         $scope.treeOptions = {
           dragStop: function(){
             redrawLines();
+            $scope.resetConnecting();
           },
           removed: function(scope){
             removeLinks(scope.$element.children('.angular-ui-tree-handle:first'));
