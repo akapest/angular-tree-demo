@@ -6,17 +6,22 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="demo.css">
 </head>
-<body ng-app="demoApp" >
+<body ng-app="demoApp" ng-controller="MainCtrl" >
 
-    <div ng-controller="TwoTreesCtrl" >
-        <div ng-model="list" data-id="left" class="tree col-sm-4" ng-include="'tree.html'"></div>
-        <div ng-model="list" data-id="right" class="tree col-sm-4" ng-include="'tree.html'"></div>
-    </div>
+    <div ng-include="'tabset.html'" ng-repeat="tabset in tabsets"></div>
+
+    <script type="text/ng-template" id="tabset.html">
+        <tabset id="{{tabset.id}}_tabset" class="col-sm-4 tabset">
+            <tab ng-repeat="tree in trees" heading="{{tree.name}}" select="select($index, tabset.id)">
+                <div ng-model="tree" ng-include="'tree.html'"></div>
+            </tab>
+        </tabset>
+    </script>
 
     <script type="text/ng-template" id="tree.html">
-        <div ui-tree="treeOptions" data-drag-delay="100">
-            <ol ui-tree-nodes="" ng-model="list" id="tree-root">
-                <li ng-repeat="node in list" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+        <div ui-tree="treeOptions" data-drag-delay="100" id="tree-root_{{tree.id}}" data-type="tree-root">
+            <ol ui-tree-nodes ng-model="tree.list">
+                <li ng-repeat="node in tree.list" ui-tree-node ng-include="'nodes_renderer.html'"></li>
             </ol>
         </div>
     </script>
@@ -37,6 +42,7 @@
     <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
     <script type="text/javascript" src="bower_components/angular/angular.js"></script>
     <script type="text/javascript" src="bower_components/angular-ui-tree/dist/angular-ui-tree.js"></script>
+    <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script type="text/javascript" src="app.js"></script>
 </body>
 </html>
