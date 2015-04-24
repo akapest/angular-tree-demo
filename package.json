@@ -1,0 +1,25 @@
+{
+  "name": "tree-test",
+  "version": "0.2.0",
+  "description": "A demo of two [trees](https://github.com/angular-ui-tree/angular-ui-tree) built on the same data.",
+  "main": "app.js",
+  "scripts": {
+    "prestart": "npm install",
+    "postinstall": "bower install",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zdespolit/angular-tree-demo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zdespolit/angular-tree-demo/issues"
+  },
+  "homepage": "https://github.com/zdespolit/angular-tree-demo",
+  "dependencies": {
+    "bower": "^1.4.1",
+    "express": "^4.12.3"
+  }
+}

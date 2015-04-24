@@ -127,12 +127,21 @@
                 second: right,
                 secondId: rightId
               });
-              drawLine(left, right, false); // and draw
+              drawLine(left, right, false);
             }
             $scope.resetConnecting(); // and clear state
+
+          } else {
+            $scope.startConnecting($el, $scope.getPeerTabset($el));
           }
           return true;
         };
+
+        $scope.startConnecting = function($el, tabset){
+          $('button').attr('disabled', true)
+          $el.find('.connect').attr('disabled', false)
+          tabset.find('button.connect').attr('disabled', false)
+        }
 
         /**
          * Clear the state if connection of nodes is aborted
@@ -144,6 +153,7 @@
           right && right.toggleClass('selected');
           $scope['_left'] = null;
           $scope['_right'] = null;
+          $('button').attr('disabled', false)
         };
 
         /**
@@ -213,6 +223,12 @@
         $scope.getTabsetId = function($el){
           return '_' + $el.parents('.tabset').attr('id').replace('_tabset','')
         };
+
+        $scope.getPeerTabset = function($el){
+          var id = $el.parents('.tabset').attr('id').replace('_tabset','')
+          var otherId = id == 'left' ? 'right_tabset' : 'left_tabset'
+          return $('#' + otherId)
+        }
 
         /**
          * Redraw on resize

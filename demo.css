@@ -3,6 +3,11 @@
 	margin-right: 8px;
 }
 
+.btn:disabled {
+	background-color: grey;
+	border-color: grey;
+}
+
 .angular-ui-tree-handle {
 	background: #f8faff;
 	border: 1px solid #dae2ea;
